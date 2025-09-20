@@ -1,0 +1,67 @@
+[
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/main.dir/main.cpp.o -c /home/seanleishman/university/raucous_wart/main.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/main.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/bvh.cpp.o -c /home/seanleishman/university/raucous_wart/src/bvh.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/bvh.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/camera.cpp.o -c /home/seanleishman/university/raucous_wart/src/camera.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/camera.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/image.cpp.o -c /home/seanleishman/university/raucous_wart/src/image.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/image.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/input.cpp.o -c /home/seanleishman/university/raucous_wart/src/input.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/input.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/light.cpp.o -c /home/seanleishman/university/raucous_wart/src/light.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/light.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/material.cpp.o -c /home/seanleishman/university/raucous_wart/src/material.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/material.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/ray.cpp.o -c /home/seanleishman/university/raucous_wart/src/ray.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/ray.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/raytracer.cpp.o -c /home/seanleishman/university/raucous_wart/src/raytracer.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/raytracer.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/renderer.cpp.o -c /home/seanleishman/university/raucous_wart/src/renderer.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/renderer.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/scene.cpp.o -c /home/seanleishman/university/raucous_wart/src/scene.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/scene.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/shape.cpp.o -c /home/seanleishman/university/raucous_wart/src/shape.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/shape.cpp"
+},
+{
+  "directory": "/home/seanleishman/university/raucous_wart/cmake-build-debug/src",
+  "command": "/usr/bin/c++  -I/home/seanleishman/university/raucous_wart/include -Wall -Wextra -O3 -march=native -ffast-math -o CMakeFiles/raytracer_lib.dir/vector.cpp.o -c /home/seanleishman/university/raucous_wart/src/vector.cpp",
+  "file": "/home/seanleishman/university/raucous_wart/src/vector.cpp"
+}
+]

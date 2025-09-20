@@ -1,0 +1,15 @@
+external/
+.cache/ 
+out/
+cmake-build-debug/
+.idea/
+cmake-build-release/
+a.out
+llm_responses2.json
+llm_responses3.json
+llm_responses4.json
+llm_responses.json
+out.txt
+out
+*.mp4
+*.zip
