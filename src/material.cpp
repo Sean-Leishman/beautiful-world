@@ -29,10 +29,10 @@ bool DiffuseMaterial::scatter(Ray& ray, Intersection& hit_info,
 {
   Vec3 scatter_dir = hit_info.normal + random_unit_vector();
   if (scatter_dir.dot(hit_info.normal) < 0)
-    scatter_dir * -1;
+    scatter_dir = scatter_dir * -1;
   scatter_dir.normalize();
 
-  scattered = {hit_info.position, scatter_dir};
+  scattered = {hit_info.position + scatter_dir * 0.0001f, scatter_dir};
   attenuation = diffuse_color.to_vec();
   return true;
 }
@@ -183,8 +183,9 @@ bool RefractiveMaterial::scatter(Ray& ray, Intersection& hit_info,
 
   if (cannot_refract || r0 > random_double())
   {
-    scattered = {hit_info.position, ray.direction};
-    return false;
+    Vec3 reflect_dir = Vec3::reflect(ray.direction, out_norm);
+    scattered = {hit_info.position + reflect_dir * 0.0001f, reflect_dir};
+    return true; // Reflect instead of failing
   }
 
   out_dir = Vec3::refract(ray.direction, out_norm, ir);

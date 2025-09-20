@@ -1,8 +1,8 @@
 #pragma once
 
+#include "random.h"
 #include "ray.hpp"
 #include "vector.hpp"
-#include "random.h"
 
 class Camera
 {
@@ -43,9 +43,8 @@ class PRenderHole : public Camera
 
   Vec3 pixel100_loc;
 
-
   public:
-      float exposure;
+  float exposure;
   Mat4 view_matrix;
   Mat4 transform_matrix;
   bool defocus;
@@ -53,28 +52,30 @@ class PRenderHole : public Camera
   PRenderHole();
   PRenderHole(int, int, Vec3, Vec3, Vec3, float, float);
 
-
   Ray compute_ray(float, float);
 
-  Vec3 get_position() override {return position;};
+  Vec3 get_position() override { return position; };
 
-  Vec3 pixel_sample_square() {
+  Vec3 pixel_sample_square()
+  {
     // Returns a random point in the square surrounding a pixel at the origin.
     auto px = -0.5 + random_double();
     auto py = -0.5 + random_double();
     return (pixel_delta_u * px) + (pixel_delta_v * py);
   }
 
-  Vec3 pixel_sample_disk(double radius) const {
-    // Generate a sample from the disk of given radius around a pixel at the origin.
+  Vec3 pixel_sample_disk(double radius) const
+  {
+    // Generate a sample from the disk of given radius around a pixel at the
+    // origin.
     auto p = Vec3::random_in_unit_disk() * radius;
     return (pixel_delta_u * p.x) + (pixel_delta_v * p.y);
   }
-  Vec3 defocus_disk_sample() const {
+
+  Vec3 defocus_disk_sample() const
+  {
     // Returns a random point in the camera defocus disk.
     auto p = Vec3::random_in_unit_disk();
     return (defocus_u * p.x) + (defocus_v * p.y);
-
   }
-
 };

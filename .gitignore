@@ -1,6 +1,8 @@
 external/
-.cache/ 
+.cache/
 out/
+build/
+output/
 cmake-build-debug/
 .idea/
 cmake-build-release/
@@ -13,3 +15,4 @@ out.txt
 out
 *.mp4
 *.zip
+*.ppm

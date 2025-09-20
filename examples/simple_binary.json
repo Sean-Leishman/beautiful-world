@@ -1,0 +1,66 @@
+{
+  "rendermode": "binary",
+  "camera": {
+    "type": "pinhole",
+    "width": 800,
+    "height": 600,
+    "position": [0, 0, 5],
+    "lookAt": [0, 0, 0],
+    "upVector": [0, 1, 0],
+    "fov": 45.0,
+    "exposure": 1.0
+  },
+  "scene": {
+    "backgroundcolor": [0.1, 0.1, 0.2],
+    "shapes": [
+      {
+        "type": "sphere",
+        "center": [0, 0, 0],
+        "radius": 1.0,
+        "material": {
+          "ks": 0.5,
+          "kd": 0.5,
+          "specularexponent": 32,
+          "diffusecolor": [1.0, 0.2, 0.2],
+          "specularcolor": [1.0, 1.0, 1.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "sphere",
+        "center": [-2, 0, -1],
+        "radius": 0.8,
+        "material": {
+          "ks": 0.5,
+          "kd": 0.5,
+          "specularexponent": 32,
+          "diffusecolor": [0.2, 1.0, 0.2],
+          "specularcolor": [1.0, 1.0, 1.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "sphere",
+        "center": [2, 0, -1],
+        "radius": 0.8,
+        "material": {
+          "ks": 0.5,
+          "kd": 0.5,
+          "specularexponent": 32,
+          "diffusecolor": [0.2, 0.2, 1.0],
+          "specularcolor": [1.0, 1.0, 1.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      }
+    ]
+  }
+}

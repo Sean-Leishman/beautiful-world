@@ -7,7 +7,7 @@ BVHNode::BVHNode(std::vector<std::shared_ptr<Shape>> shapes)
     : objects(std::move(shapes)) {};
 void BVHTree::buildBVH(std::vector<std::shared_ptr<Shape>> objects)
 {
-  root = _buildBVH(objects);
+  root = _buildBVH(std::move(objects));
 }
 
 std::unique_ptr<BVHNode>
@@ -16,11 +16,7 @@ BVHTree::_buildBVH(std::vector<std::shared_ptr<Shape>> objects)
   if (objects.size() <= threshold)
   {
     auto node = std::make_unique<BVHNode>(std::move(objects));
-    /*
-    for (const auto& obj: node->objects){
-      node->bbox.expand_for(obj->bbox);
-    }
-    */
+    update_bounding_box(node.get());
     return node;
   }
 
@@ -31,17 +27,19 @@ BVHTree::_buildBVH(std::vector<std::shared_ptr<Shape>> objects)
     if (leftObjects.size() > 0)
     {
       auto node = std::make_unique<BVHNode>(std::move(leftObjects));
+      update_bounding_box(node.get());
       return node;
     }
     else
     {
       auto node = std::make_unique<BVHNode>(std::move(rightObjects));
+      update_bounding_box(node.get());
       return node;
     }
   }
 
-  std::unique_ptr<BVHNode> leftChild = _buildBVH(leftObjects);
-  std::unique_ptr<BVHNode> rightChild = _buildBVH(rightObjects);
+  std::unique_ptr<BVHNode> leftChild = _buildBVH(std::move(leftObjects));
+  std::unique_ptr<BVHNode> rightChild = _buildBVH(std::move(rightObjects));
 
   auto node = std::make_unique<BVHNode>();
   node->left = std::move(leftChild);
@@ -87,7 +85,7 @@ void BVHTree::update_bounding_box(BVHNode* node)
 std::pair<BVHTree::Shapes, BVHTree::Shapes>
 BVHTree::split_objects(BVHTree::Shapes& objects)
 {
-  char* axis = "xyz";
+  const char* axis = "xyz";
 
   std::vector<float> centroids;
 
@@ -105,16 +103,15 @@ BVHTree::split_objects(BVHTree::Shapes& objects)
 
     // Split objects into two groups based on the median
     std::vector<std::shared_ptr<Shape>> leftObjects, rightObjects;
-    for (size_t i = 0; i < objects.size(); ++i)
+    for (size_t j = 0; j < objects.size(); ++j)
     {
-
-      if (objects[i]->bbox.centroid().get(axis[i]) < median)
+      if (objects[j]->bbox.centroid().get(axis[i]) < median)
       {
-        leftObjects.push_back(std::move(objects[i]));
+        leftObjects.push_back(std::move(objects[j]));
       }
       else
       {
-        rightObjects.push_back(std::move(objects[i]));
+        rightObjects.push_back(std::move(objects[j]));
       }
     }
     return {std::move(leftObjects), std::move(rightObjects)};

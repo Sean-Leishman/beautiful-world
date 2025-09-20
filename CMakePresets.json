@@ -1,47 +1,82 @@
 {
-  "version": 2,
+  "version": 3,
   "configurePresets": [
     {
-      "name": "debug",
-      "displayName": "Clang 10.0.0 x86_64-pc-linux-gnu",
-      "description": "Using compilers: C = /usr/bin/clang, CXX = /usr/bin/clang++",
-      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "name": "default",
+      "displayName": "Clang 21 Default",
+      "description": "Default build with clang-21",
+      "binaryDir": "${sourceDir}/build/${presetName}",
       "generator": "Ninja",
       "cacheVariables": {
-        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
-        "CMAKE_C_COMPILER": "/usr/bin/clang",
-        "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
-        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "clang-21",
+        "CMAKE_CXX_COMPILER": "clang++-21",
+        "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       }
     },
     {
-      "name": "release",
-      "displayName": "Clang 10.0.0 x86_64-pc-linux-gnu",
-      "description": "Using compilers: C = /usr/bin/clang, CXX = /usr/bin/clang++",
+      "name": "debug",
+      "displayName": "Clang 21 Debug",
+      "description": "Debug build with clang-21",
       "binaryDir": "${sourceDir}/build/${presetName}",
       "generator": "Ninja",
       "cacheVariables": {
-        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
-        "CMAKE_C_COMPILER": "/usr/bin/clang",
-        "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
+        "CMAKE_C_COMPILER": "clang-21",
+        "CMAKE_CXX_COMPILER": "clang++-21",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_CXX_FLAGS": "-Wall -Wextra -g -fsanitize=address,undefined",
+        "CMAKE_EXE_LINKER_FLAGS": "-fsanitize=address,undefined"
+      }
+    },
+    {
+      "name": "release",
+      "displayName": "Clang 21 Release",
+      "description": "Optimized release build with clang-21",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang-21",
+        "CMAKE_CXX_COMPILER": "clang++-21",
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "release-lto",
+      "displayName": "Clang 21 Release with LTO",
+      "description": "Maximum optimization with Link-Time Optimization",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang-21",
+        "CMAKE_CXX_COMPILER": "clang++-21",
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_INTERPROCEDURAL_OPTIMIZATION": "ON"
       }
     }
   ],
   "buildPresets": [
     {
+      "name": "default",
+      "displayName": "Default Build",
+      "configurePreset": "default"
+    },
+    {
       "name": "debug",
-      "description": "",
-      "displayName": "",
+      "displayName": "Debug Build",
       "configurePreset": "debug"
     },
     {
       "name": "release",
-      "description": "",
-      "displayName": "",
+      "displayName": "Release Build",
       "configurePreset": "release"
+    },
+    {
+      "name": "release-lto",
+      "displayName": "Release LTO Build",
+      "configurePreset": "release-lto"
     }
   ]
 }

@@ -12,7 +12,7 @@ class Vec3
   double y;
   double z;
   Vec3();
-  Vec3(std::vector<float>);
+  Vec3(const std::vector<float>&);
   Vec3(float, float, float);
   Vec3(double x, double y, double z);
 
@@ -234,7 +234,7 @@ inline Vec3 random_in_unit_sphere()
 inline Vec3 random_unit_vector()
 {
   Vec3 v = random_in_unit_sphere();
-  Vec3::normalize(v);
+  v.normalize();
   return v;
 }
 

@@ -1,0 +1,231 @@
+{
+  "nbounces": 5,
+  "nsamples": 64,
+  "rendermode": "pathtracer",
+  "camera": {
+    "type": "pinhole",
+    "width": 400,
+    "height": 400,
+    "position": [0, 0, 4],
+    "lookAt": [0, 0, 0],
+    "upVector": [0, 1, 0],
+    "fov": 50.0,
+    "exposure": 0.5
+  },
+  "scene": {
+    "backgroundcolor": [0.0, 0.0, 0.0],
+    "lightsources": [
+      {
+        "type": "arealight",
+        "position": [0, 1.9, 0],
+        "intensity": [15, 15, 15],
+        "normal": [0, -1, 0],
+        "size": [0.5, 0.5, 0]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "sphere",
+        "center": [-0.6, -1.2, -0.3],
+        "radius": 0.4,
+        "material": {
+          "ks": 0.9,
+          "kd": 0.1,
+          "specularexponent": 128,
+          "diffusecolor": [0.9, 0.9, 0.9],
+          "specularcolor": [1.0, 1.0, 1.0],
+          "isreflective": true,
+          "reflectivity": 0.95,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "sphere",
+        "center": [0.6, -1.2, 0.3],
+        "radius": 0.4,
+        "material": {
+          "ks": 0.1,
+          "kd": 0.1,
+          "specularexponent": 32,
+          "diffusecolor": [1.0, 1.0, 1.0],
+          "specularcolor": [1.0, 1.0, 1.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": true,
+          "refractiveindex": 1.5
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [-2, -1.6, 2],
+        "v1": [2, -1.6, 2],
+        "v2": [2, -1.6, -2],
+        "material": {
+          "ks": 0.0,
+          "kd": 1.0,
+          "specularexponent": 1,
+          "diffusecolor": [0.8, 0.8, 0.8],
+          "specularcolor": [0.0, 0.0, 0.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [-2, -1.6, 2],
+        "v1": [2, -1.6, -2],
+        "v2": [-2, -1.6, -2],
+        "material": {
+          "ks": 0.0,
+          "kd": 1.0,
+          "specularexponent": 1,
+          "diffusecolor": [0.8, 0.8, 0.8],
+          "specularcolor": [0.0, 0.0, 0.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [-2, -1.6, -2],
+        "v1": [2, -1.6, -2],
+        "v2": [2, 2, -2],
+        "material": {
+          "ks": 0.0,
+          "kd": 1.0,
+          "specularexponent": 1,
+          "diffusecolor": [0.8, 0.8, 0.8],
+          "specularcolor": [0.0, 0.0, 0.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [-2, -1.6, -2],
+        "v1": [2, 2, -2],
+        "v2": [-2, 2, -2],
+        "material": {
+          "ks": 0.0,
+          "kd": 1.0,
+          "specularexponent": 1,
+          "diffusecolor": [0.8, 0.8, 0.8],
+          "specularcolor": [0.0, 0.0, 0.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [-2, -1.6, 2],
+        "v1": [-2, 2, 2],
+        "v2": [-2, 2, -2],
+        "material": {
+          "ks": 0.0,
+          "kd": 1.0,
+          "specularexponent": 1,
+          "diffusecolor": [0.8, 0.2, 0.2],
+          "specularcolor": [0.0, 0.0, 0.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [-2, -1.6, 2],
+        "v1": [-2, 2, -2],
+        "v2": [-2, -1.6, -2],
+        "material": {
+          "ks": 0.0,
+          "kd": 1.0,
+          "specularexponent": 1,
+          "diffusecolor": [0.8, 0.2, 0.2],
+          "specularcolor": [0.0, 0.0, 0.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [2, -1.6, -2],
+        "v1": [2, 2, -2],
+        "v2": [2, 2, 2],
+        "material": {
+          "ks": 0.0,
+          "kd": 1.0,
+          "specularexponent": 1,
+          "diffusecolor": [0.2, 0.8, 0.2],
+          "specularcolor": [0.0, 0.0, 0.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [2, -1.6, -2],
+        "v1": [2, 2, 2],
+        "v2": [2, -1.6, 2],
+        "material": {
+          "ks": 0.0,
+          "kd": 1.0,
+          "specularexponent": 1,
+          "diffusecolor": [0.2, 0.8, 0.2],
+          "specularcolor": [0.0, 0.0, 0.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [-2, 2, 2],
+        "v1": [2, 2, 2],
+        "v2": [2, 2, -2],
+        "material": {
+          "ks": 0.0,
+          "kd": 1.0,
+          "specularexponent": 1,
+          "diffusecolor": [0.8, 0.8, 0.8],
+          "specularcolor": [0.0, 0.0, 0.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [-2, 2, 2],
+        "v1": [2, 2, -2],
+        "v2": [-2, 2, -2],
+        "material": {
+          "ks": 0.0,
+          "kd": 1.0,
+          "specularexponent": 1,
+          "diffusecolor": [0.8, 0.8, 0.8],
+          "specularcolor": [0.0, 0.0, 0.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      }
+    ]
+  }
+}

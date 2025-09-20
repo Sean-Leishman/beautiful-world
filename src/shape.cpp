@@ -37,23 +37,24 @@ bool Sphere::intersect(const Ray& ray, float tmin, float tmax,
   if (discriminant < 0)
     return false;
 
-  float temp = (-b - std::sqrt(discriminant)) / a;
+  float sqrt_disc = std::sqrt(discriminant);
+  float temp = (-b - sqrt_disc) / a;
   if (temp < tmax && temp > tmin)
   {
     intersection->distance = temp;
-    intersection->position = ray.point_at_parameter(intersection->distance);
+    intersection->position = ray.point_at_parameter(temp);
     intersection->normal =
-        Vec3::normalize((intersection->position - center) / radius);
+        (intersection->position - center) / radius; // Already unit length
     intersection->object = get_shared_ptr();
     return true;
   }
-  temp = (-b + std::sqrt(discriminant)) / a;
+  temp = (-b + sqrt_disc) / a;
   if (temp < tmax && temp > tmin)
   {
     intersection->distance = temp;
-    intersection->position = ray.point_at_parameter(intersection->distance);
+    intersection->position = ray.point_at_parameter(temp);
     intersection->normal =
-        Vec3::normalize((intersection->position - center) / radius);
+        (intersection->position - center) / radius; // Already unit length
     intersection->object = get_shared_ptr();
     return true;
   }
@@ -71,9 +72,6 @@ Vec2 Sphere::interpolate_uv(const Intersection* hit_info) const
 
   float u = (theta) / (2 * M_PI) + 0.5f;
   float v = phi / (M_PI) + 0.5;
-
-  std::cout << "Sphere: " << u << ", " << v << ", " << theta << ", " << phi
-            << ", " << point << std::endl;
 
   return {u, v};
 }
@@ -274,7 +272,7 @@ bool Triangle::intersect(const Ray& ray, float tmin, float tmax,
   if (u < 0.0 || u > 1.0)
     return false;
 
-  Vec3 q = s.cross(v1 - v0);
+  Vec3 q = s.cross(edge1);
   float v = f * ray.direction.dot(q);
 
   if (v < 0.0 || u + v > 1.0)

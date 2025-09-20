@@ -23,7 +23,7 @@ PPMColor PPMImage::get_pixel(float u, float v) const
   int x = u * width;
   int y = v * height;
 
-  if ((y * width) + x > static_cast<int>(data.size()))
+  if ((y * width) + x >= static_cast<int>(data.size()))
   {
     return PPMColor();
   }
@@ -48,7 +48,7 @@ bool PPMImage::save_to_file(const std::string& filename)
   // Write pixel data
   for (int y = 0; y < height; ++y)
   {
-    for (int x = width; x > 0; --x)
+    for (int x = 0; x < width; ++x)
     {
       image_file << data[(y * width) + x] << "\n";
     }
@@ -105,9 +105,9 @@ bool PPMImage::read_from_file(const std::string& filename)
       for (int x = 0; x < width; ++x)
       {
         int index = (y * width + x) * 3;
-        PPMColor color{static_cast<float>(out[index] / maxVal),
-                       static_cast<float>(out[index + 1] / maxVal),
-                       static_cast<float>(out[index + 2] / maxVal)};
+        PPMColor color{static_cast<float>(out[index]) / maxVal,
+                       static_cast<float>(out[index + 1]) / maxVal,
+                       static_cast<float>(out[index + 2]) / maxVal};
 
         data[y * width + x] = color;
       }
@@ -118,8 +118,9 @@ bool PPMImage::read_from_file(const std::string& filename)
       {
         float r, g, b;
         file >> r >> g >> b;
-        PPMColor color{r / max_color_value, g / max_color_value,
-                       b / max_color_value};
+        PPMColor color{r / static_cast<float>(max_color_value),
+                       g / static_cast<float>(max_color_value),
+                       b / static_cast<float>(max_color_value)};
         data[y * width + x] = color;
       }
     }

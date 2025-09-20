@@ -24,5 +24,5 @@ class Intersection
 
   std::shared_ptr<const Shape> object;
 
-  Intersection() : type(NORMAL), first_hit(true){};
+  Intersection() : type(NORMAL), first_hit(true) {};
 };

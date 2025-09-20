@@ -17,13 +17,14 @@ class PPMColor
 
   PPMColor() : r(1), g(1), b(1) {};
   PPMColor(float r, float g, float b, float a = 1) : r(r), g(g), b(b), a(a) {};
-  PPMColor(std::vector<float> rgb) : r(rgb[0]), g(rgb[1]), b(rgb[2]), a(1) {};
+  PPMColor(const std::vector<float>& rgb)
+      : r(rgb[0]), g(rgb[1]), b(rgb[2]), a(1) {};
   PPMColor(Vec3 rgb) : r(rgb.x), g(rgb.y), b(rgb.z) {};
 
   friend std::ostream& operator<<(std::ostream& out, PPMColor& v)
   {
     out << (int)round(v.r * 255) << " " << (int)round(v.g * 255) << " "
-        << (int)round(v.b * 256);
+        << (int)round(v.b * 255);
     return out;
   }
 
@@ -65,11 +66,7 @@ class PPMColor
   Vec3 to_vec() const { return Vec3(r, g, b); }
 
   void clamp()
-  { /*
-     r = std::min(1.0f, r);
-     g = std::min(1.0f, g);
-     b = std::min(1.0f, b);
-     */
+  {
     Vec3 v = Vec3{r, g, b};
     float max_white2 = 10 * 10;
     Vec3 num = v * ((v / Vec3{max_white2, max_white2, max_white2}) + 1.0f);

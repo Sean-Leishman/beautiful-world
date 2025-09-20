@@ -8,8 +8,6 @@
 #include <memory>
 #include <utility>
 
-
-
 class BVHNode
 {
   public:
@@ -22,7 +20,6 @@ class BVHNode
   BVHNode(std::vector<std::shared_ptr<Shape>> shapes);
 
   bool is_leaf() const { return objects.size() > 0; }
-
 };
 
 class BVHTree
@@ -31,15 +28,14 @@ class BVHTree
 
   private:
   public:
-      BVHTree(): threshold(1), root(std::make_unique<BVHNode>()){};
+  BVHTree() : threshold(1), root(std::make_unique<BVHNode>()) {};
   float threshold;
   std::unique_ptr<BVHNode> root;
 
   void buildBVH(std::vector<std::shared_ptr<Shape>> objects);
   void update_bounding_box(BVHNode* node);
 
-  bool intersectBVH(BVHNode* node, Ray& ray,
-                    Intersection& hit_info);
+  bool intersectBVH(BVHNode* node, Ray& ray, Intersection& hit_info);
   bool intersect_bvh(Ray ray, Intersection& intersection);
   std::pair<Shapes, Shapes> split_objects(Shapes& objects);
   bool intersectBVH(Ray& ray, Intersection& hit_info);

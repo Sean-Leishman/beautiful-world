@@ -7,59 +7,87 @@
 #include "json.hpp"
 #include "light.hpp"
 #include "material.hpp"
-#include <execution>
+#include <atomic>
+#include <chrono>
 #include <filesystem>
+#include <iomanip>
 #include <memory>
+#include <omp.h>
 
-void Renderer::render_frame(std::string save_file)
+void Renderer::render_frame(const std::string& save_file)
 {
-  std::cout << "render" << std::endl;
+  std::cout << "Building BVH tree..." << std::flush;
   scene.build_bvh();
-  std::cout << "built tree" << std::endl;
+  std::cout << " done\n";
 
-  /*
-const int total_pixels = image_width * image_height;
-std::cout << "total pixels: " << total_pixels << std::endl;
-std::cout << "image size: " << image_width << "x" << image_height
-          << std::endl;
+  const int total_pixels = image_width * image_height;
+  std::cout << "Image: " << image_width << "x" << image_height << " ("
+            << total_pixels << " pixels)\n";
 
-std::vector<int> pixel_indicies;
-std::iota(pixel_indicies.begin(), pixel_indicies.end(), 0);
+  int num_threads = omp_get_max_threads();
+  std::cout << "Threads: " << num_threads << "\n";
+  std::cout << "Rendering:\n";
 
-for (int i = 0; i < total_pixels; ++i)
-{
-  std::for_each(std::execution::par_unseq, pixel_indicies.begin(),
-                pixel_indicies.end(),
-                [&](const auto pixel_idx)
-                {
-                  int x = pixel_idx % image_width;
-                  int y = pixel_idx / image_width;
-                  auto color = raytracer->trace_ray((float)x, (float)y);
-                  image.set_pixel(x, y, color);
-                });
-}
-*/
+  std::atomic<int> pixels_done{0};
+  auto start_time = std::chrono::high_resolution_clock::now();
 
-  for (int x = 0; x < image_width; ++x)
+  constexpr int bar_width = 50;
+
+#pragma omp parallel for schedule(dynamic, 1000)
+  for (int pixel_idx = 0; pixel_idx < total_pixels; ++pixel_idx)
   {
-    for (int y = 0; y < image_height; ++y)
+    int x = pixel_idx % image_width;
+    int y = pixel_idx / image_width;
+    PPMColor color =
+        raytracer->trace_ray(static_cast<float>(x), static_cast<float>(y));
+    image.set_pixel(x, y, color);
+
+    int done = ++pixels_done;
+    if (done % 5000 == 0 || done == total_pixels)
     {
-      PPMColor color = raytracer->trace_ray((float)x, (float)y);
-      image.set_pixel(x, y, color);
+#pragma omp critical
+      {
+        float progress = static_cast<float>(done) / total_pixels;
+        int filled = static_cast<int>(progress * bar_width);
+
+        auto now = std::chrono::high_resolution_clock::now();
+        auto elapsed =
+            std::chrono::duration<double>(now - start_time).count();
+        double eta = (elapsed / progress) - elapsed;
+
+        std::cout << "\r  [";
+        for (int i = 0; i < bar_width; ++i)
+        {
+          if (i < filled)
+            std::cout << "=";
+          else if (i == filled)
+            std::cout << ">";
+          else
+            std::cout << " ";
+        }
+        std::cout << "] " << std::fixed << std::setprecision(1)
+                  << (progress * 100) << "% "
+                  << "ETA: " << std::setprecision(0) << eta << "s    "
+                  << std::flush;
+      }
     }
-    std::cout << "scan line: " << x << std::endl;
   }
-  std::cout << scene.shapes[0] << "\n";
+
+  auto end_time = std::chrono::high_resolution_clock::now();
+  auto total_time =
+      std::chrono::duration<double>(end_time - start_time).count();
+
+  std::cout << "\n  Completed in " << std::fixed << std::setprecision(2)
+            << total_time << "s\n";
 
   std::filesystem::path path(std::filesystem::current_path());
-  // path += "/materials/2.ppm";
-  path += save_file;
+  path /= save_file;
+  std::cout << "Saving to: " << path << "\n";
   image.save_to_file(path);
 }
 
-std::unique_ptr<Material> Renderer::load_material(nlohmann::json j)
+std::unique_ptr<Material> Renderer::load_material(const nlohmann::json& j)
 {
-
   bool is_reflective = j["isreflective"];
   bool is_refractive = j["isrefractive"];
 
@@ -71,8 +99,8 @@ std::unique_ptr<Material> Renderer::load_material(nlohmann::json j)
     if (textures.find(key) == textures.end())
     {
       std::filesystem::path filename(std::filesystem::current_path());
-      filename += key;
-      auto ptr = std::make_shared<Texture>(Texture{filename});
+      filename /= key;
+      auto ptr = std::make_shared<Texture>(filename.string());
 
       textures.insert(std::make_pair(key, std::move(ptr)));
     }
@@ -116,7 +144,7 @@ std::unique_ptr<Material> Renderer::load_material(nlohmann::json j)
   return material;
 }
 
-void Renderer::load_lights(nlohmann::json lights)
+void Renderer::load_lights(const nlohmann::json& lights)
 {
   scene.ambient_light = std::make_shared<AmbientLight>(Vec3(0.0f, 0.0f, 0.0f),
                                                        Vec3(0.0f, 0.0f, 0.0f));
@@ -148,26 +176,27 @@ void Renderer::load_lights(nlohmann::json lights)
       std::vector<float> size = light["size"];
       std::vector<float> normal = light["normal"];
 
-      auto light = AreaLight(position, intensity, normal, size);
-      new_light = std::make_shared<AreaLight>(light);
+      auto area_light = AreaLight(position, intensity, normal, size);
 
       if (input_render == "pathtracer")
       {
         std::unique_ptr<Material> mat =
-            std::make_unique<EmissiveMaterial>(DiffuseMaterial(), light);
-        new_shape = std::make_shared<Sphere>(Vec3{position}, size[0] * 0.1,
+            std::make_unique<EmissiveMaterial>(DiffuseMaterial(), area_light);
+        float radius = std::max({size[0], size[1], size[2], 0.3f});
+        new_shape = std::make_shared<Sphere>(Vec3{position}, radius,
                                              std::move(mat));
         scene.shapes.push_back(new_shape);
       }
       else
       {
+        new_light = std::make_shared<AreaLight>(std::move(area_light));
         scene.lights.push_back(new_light);
       }
     }
   }
 }
 
-void Renderer::load_shapes(nlohmann::json shapes)
+void Renderer::load_shapes(const nlohmann::json& shapes)
 {
   for (const auto& shape : shapes)
   {
@@ -227,7 +256,7 @@ void Renderer::load_shapes(nlohmann::json shapes)
 int Renderer::load_file(const std::string& filename)
 {
   std::filesystem::path path(std::filesystem::current_path());
-  path += filename;
+  path /= filename;
   parser.read_file(path.string());
 
   input_render = parser.get<std::string>("rendermode");

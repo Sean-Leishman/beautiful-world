@@ -1,0 +1,118 @@
+{
+  "nbounces": 4,
+  "rendermode": "phong",
+  "camera": {
+    "type": "pinhole",
+    "width": 800,
+    "height": 600,
+    "position": [0, 2, 8],
+    "lookAt": [0, 0, 0],
+    "upVector": [0, 1, 0],
+    "fov": 45.0,
+    "exposure": 1.0
+  },
+  "scene": {
+    "backgroundcolor": [0.05, 0.05, 0.1],
+    "lightsources": [
+      {
+        "type": "pointlight",
+        "position": [5, 5, 5],
+        "intensity": [1.0, 1.0, 1.0]
+      },
+      {
+        "type": "pointlight",
+        "position": [-5, 3, 3],
+        "intensity": [0.5, 0.5, 0.8]
+      },
+      {
+        "type": "ambientlight",
+        "intensity": [0.1, 0.1, 0.1],
+        "color": [1.0, 1.0, 1.0]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "sphere",
+        "center": [0, 0, 0],
+        "radius": 1.0,
+        "material": {
+          "ks": 0.8,
+          "kd": 0.6,
+          "specularexponent": 64,
+          "diffusecolor": [0.8, 0.2, 0.2],
+          "specularcolor": [1.0, 1.0, 1.0],
+          "isreflective": true,
+          "reflectivity": 0.3,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "sphere",
+        "center": [-2.5, 0, 0],
+        "radius": 1.0,
+        "material": {
+          "ks": 0.9,
+          "kd": 0.3,
+          "specularexponent": 128,
+          "diffusecolor": [0.9, 0.9, 0.9],
+          "specularcolor": [1.0, 1.0, 1.0],
+          "isreflective": true,
+          "reflectivity": 0.9,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "sphere",
+        "center": [2.5, 0, 0],
+        "radius": 1.0,
+        "material": {
+          "ks": 0.1,
+          "kd": 0.1,
+          "specularexponent": 32,
+          "diffusecolor": [0.1, 0.1, 0.1],
+          "specularcolor": [1.0, 1.0, 1.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": true,
+          "refractiveindex": 1.5
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [-10, -1, 10],
+        "v1": [10, -1, 10],
+        "v2": [10, -1, -10],
+        "material": {
+          "ks": 0.2,
+          "kd": 0.8,
+          "specularexponent": 16,
+          "diffusecolor": [0.3, 0.3, 0.5],
+          "specularcolor": [1.0, 1.0, 1.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      },
+      {
+        "type": "triangle",
+        "v0": [-10, -1, 10],
+        "v1": [10, -1, -10],
+        "v2": [-10, -1, -10],
+        "material": {
+          "ks": 0.2,
+          "kd": 0.8,
+          "specularexponent": 16,
+          "diffusecolor": [0.3, 0.3, 0.5],
+          "specularcolor": [1.0, 1.0, 1.0],
+          "isreflective": false,
+          "reflectivity": 0.0,
+          "isrefractive": false,
+          "refractiveindex": 1.0
+        }
+      }
+    ]
+  }
+}

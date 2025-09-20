@@ -27,11 +27,9 @@ struct BoundingBox
   Vec3 min;
   Vec3 max;
 
-  float EPSILON = 1e-8;
-  float t_min = std::numeric_limits<float>::min();
-  float t_max = std::numeric_limits<float>::max();
+  static constexpr float EPSILON = 1e-8f;
 
-  bool intersect(const Ray& ray)
+  bool intersect(const Ray& ray) const
   {
     Vec3 invDir = {1.0f / ray.direction.x, 1.0f / ray.direction.y,
                    1.0f / ray.direction.z};
@@ -41,8 +39,8 @@ struct BoundingBox
     Vec3 tminv = t0.min(t1);
     Vec3 tmaxv = t0.max(t1);
 
-    t_min = std::min({tminv.x, tminv.y, tminv.z});
-    t_max = std::min({tmaxv.x, tmaxv.y, tmaxv.z});
+    float t_min = std::max({tminv.x, tminv.y, tminv.z});
+    float t_max = std::min({tmaxv.x, tmaxv.y, tmaxv.z});
 
     return t_max >= t_min;
   }
@@ -154,6 +152,6 @@ class Triangle : public Shape
   bool intersect(const Ray& ray, float tmin, float tmax,
                  Intersection* intersection) const override;
   Vec2 interpolate_uv(const Intersection* hit_info) const override;
-  std::string name() const override { return "Trigangle"; };
+  std::string name() const override { return "Triangle"; };
   void transform(Mat4& view_matrix) override;
 };
